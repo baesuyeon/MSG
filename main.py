@@ -30,7 +30,9 @@ def vod():
 @app.route('/info', methods=['GET', 'POST'])
 def info():
     search = request.args.get('search')
-    html = render_template('info.html', search_arg=search)
+    temp = db.search_engine(search)
+    print(temp)
+    html = render_template('info.html', search_arg=temp)
     return html
 
 

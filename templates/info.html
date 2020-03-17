@@ -3,14 +3,17 @@
 
 <div class="container">
 <!--    여기 디비 검색 값-->
-    {% if search_arg == "이태원" %}
+    {% if search_arg|length > 0 %}
     <div class="row" style="border-bottom: 2px solid black;">
         <div class="col-lg-8">
             <div class="bs-component">
                 <div class="card mb-3" style="max-width: 10rem;">
                   <div class="card-header">Header</div>
+
                     request merge test
-                    <a href="/vod"><img style="height: 100%; width: 100%; display: block;" src="../static/cover/{{search_arg}}.PNG"></a>
+           
+                    <a href="/vod"><img style="height: 100%; width: 100%; display: block;" src="../static/cover/{{search_arg[0][3]}}"></a>
+
                 </div>
             </div>
         </div>

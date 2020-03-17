@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+<!--    여기 디비 검색 값-->
+    {% if search_arg == "이태원" %}
+    <div class="row" style="border-bottom: 2px solid black;">
+        <div class="col-lg-8">
+            <div class="bs-component">
+                <div class="card mb-3" style="max-width: 10rem;">
+                  <div class="card-header">Header</div>
+                    <a href="/vod"><img style="height: 100%; width: 100%; display: block;" src="../static/cover/{{search_arg}}.PNG"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="bs-component">
+                <div style="max-width: 20rem;">
+                  <div class="card-body">
+                    <a href="#" class="card-link"># 해시태그1</a>
+                    <a href="#" class="card-link"># 해시태그2</a>
+                  </div>
+                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="bs-component">
+                <div style="max-width: 20rem;">
+                  <div class="card-body">
+                    <a href="#" class="card-link"># 해시태그1</a>
+                    <a href="#" class="card-link"># 해시태그2</a>
+                  </div>
+                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

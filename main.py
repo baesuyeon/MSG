@@ -7,6 +7,7 @@ app.secret_key = 'MSG'
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 # hi~
+# hello
 
 @app.route('/')
 def index():
@@ -20,7 +21,6 @@ def index():
     print(hashtag)
     html = render_template('index.html', data_list=views, tag_list=hashtag )
     return html
-
 
 @app.route('/vod', methods=['GET', 'POST'])
 def vod():

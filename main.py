@@ -6,7 +6,6 @@ app = Flask(__name__, template_folder='templates')
 app.secret_key = 'MSG'
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
-# hi~
 
 @app.route('/')
 def index():
@@ -31,7 +30,9 @@ def vod():
 @app.route('/info', methods=['GET', 'POST'])
 def info():
     search = request.args.get('search')
-    html = render_template('info.html', search_arg=search)
+    temp = db.search_engine(search)
+    print(temp)
+    html = render_template('info.html', search_arg=temp)
     return html
 
 

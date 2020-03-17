@@ -27,3 +27,13 @@ def get_hashtag(thumbnail_id):
     result = cursor.fetchall()
     conn.close()
     return result
+
+
+def search_engine(arg):
+    conn = get_connection()
+    sql = '''select * from vod_tb where vod_title like %s'''
+    cursor = conn.cursor()
+    cursor.execute(sql, (f'%{arg}%'))
+    result = cursor.fetchall()
+    conn.close()
+    return result

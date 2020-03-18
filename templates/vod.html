@@ -18,7 +18,7 @@
             <div class="bs-component">
                 <div class="card mb-3" style="max-width: 50rem;">
                   <h3 class="card-header">Origin Video</h3>
-                    <video style="height: 100%; width: 100%; display: block;" src="../static/vod/새.mp4" controls></video>
+                    <video style="height: 100%; width: 100%; display: block;" src="../static/vod/{{vod_id[0][2]}}" controls></video>
 
                 </div>
             </div>
@@ -28,24 +28,19 @@
         <div class="col-lg-4">
             <div class="bs-component">
                 <div style="max-width: 20rem;">
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
-                  </div>
-                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
-
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
-                  </div>
-
-                    <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img2.PNG">
-
+                    {% for i in range(data_list|length) %}
+                        <div class="card-body">
+                          {% for j in range(tag_list[i]|length) %}
+                            <a href="/info?search={{tag_list[i][j][0]}}" class="card-link"># {{tag_list[i][j][0]}}</a>
+                          {% endfor %}
+                        </div>
+                        조회수 : {{data_list[i][3]}}
+                        <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 

@@ -20,9 +20,25 @@ def index():
     return html
 
 
-@app.route('/vod', methods=['GET', 'POST'])
+@app.route('/vod', methods=['POST'])
 def vod():
-    html = render_template('vod.html')
+    vod_id = request.form['test']
+    print(vod_id)
+    vod = db.get_vod(vod_id)
+    print(vod)
+    thum_list = db.get_thumbnail_with_vodid(vod_id)
+    if len(thum_list) > 2:
+        thum_list = random.sample(thum_list, 2)
+
+    print(thum_list)
+    hashtag = []
+    for i in thum_list:
+        temp = db.get_hashtag(i[0])
+        if len(temp) > 2:
+            temp = random.sample(temp, 2)
+        hashtag.append(temp)
+    print(hashtag)
+    html = render_template('vod.html', vod_id=vod, data_list=thum_list, tag_list=hashtag)
     return html
 
 
@@ -37,6 +53,7 @@ def info():
         if len(temp) > 2:
             temp = random.sample(temp, 2)
         hashtag.append(temp)
+    print(search_vod)
     html = render_template('info.html', search_arg=search_vod, search_origin=search, data_list=views, tag_list=hashtag)
     return html
 

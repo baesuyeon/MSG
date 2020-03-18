@@ -39,6 +39,26 @@ def get_vod_cover(arg):
     return result
 
 
+def get_vod(arg):
+    conn = get_connection()
+    sql = '''select * from vod_tb where vod_id = %s'''
+    cursor = conn.cursor()
+    cursor.execute(sql, arg)
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
+
+def get_thumbnail_with_vodid(arg):
+    conn = get_connection()
+    sql = '''select * from thumbnail_tb where vod_id = %s'''
+    cursor = conn.cursor()
+    cursor.execute(sql, arg)
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
+
 def get_thumbnail_from_hashtag(arg):
     conn = get_connection()
     sql = '''select * from thumbnail_tb where thumbnail_id in (select thumbnail_id from thumbnail_hash where hash_id in (select hash_id from hash_tb where name like %s))'''

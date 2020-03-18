@@ -29,9 +29,19 @@ def get_hashtag(thumbnail_id):
     return result
 
 
-def search_engine(arg):
+def get_vod_cover(arg):
     conn = get_connection()
     sql = '''select * from vod_tb where vod_title like %s'''
+    cursor = conn.cursor()
+    cursor.execute(sql, (f'%{arg}%'))
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
+
+def get_thumbnail_from_hashtag(arg):
+    conn = get_connection()
+    sql = '''select * from thumbnail_tb where thumbnail_id in (select thumbnail_id from thumbnail_hash where hash_id in (select hash_id from hash_tb where name like %s))'''
     cursor = conn.cursor()
     cursor.execute(sql, (f'%{arg}%'))
     result = cursor.fetchall()

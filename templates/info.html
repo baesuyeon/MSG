@@ -5,48 +5,37 @@
 <!--    여기 디비 검색 값-->
     {% if search_arg|length > 0 %}
     <div class="row" style="border-bottom: 2px solid black;">
-        <div class="col-lg-8">
+        {% for i in range(search_arg|length) %}
+        <div class="col-lg-2">
             <div class="bs-component">
                 <div class="card mb-3" style="max-width: 10rem;">
-                  <div class="card-header">Header</div>
-                    request merge test
-                    <a href="/vod"><img style="height: 100%; width: 100%; display: block;" src="../static/cover/{{search_arg[0][3]}}"></a>
-
+                      <div class="card-header">{{search_arg[i][1]}}</div>
+                      <a href="/vod"><img style="height: 100%; width: 100%; display: block;" src="../static/cover/{{search_arg[i][3]}}"></a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
     {% else %}
+    <font size="10rem" style="text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3)"> # {{search_origin}} </font>
     {% endif %}
 
     <div class="row">
-        <div class="col-lg-4">
-            <div class="bs-component">
-                <div style="max-width: 20rem;">
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
+        {% for i in range(data_list|length) %}
+          <div class="col-lg-4">
+              <div class="bs-component">
+                  <div style="max-width: 20rem;">
+                    <div class="card-body">
+                      {% for j in range(tag_list[i]|length) %}
+                        <a href="/info?search={{tag_list[i][j][0]}}" class="card-link"># {{tag_list[i][j][0]}}</a>
+                      {% endfor %}
+                    </div>
+                    조회수 : {{data_list[i][3]}}
+                    <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
                   </div>
-                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="bs-component">
-                <div style="max-width: 20rem;">
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
-                  </div>
-                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
-                </div>
-            </div>
-        </div>
+              </div>
+          </div>
+      {% endfor %}
     </div>
-
 </div>
-
-
-
 {% endblock %}

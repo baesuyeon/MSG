@@ -31,6 +31,7 @@ def vod():
         thum_list = random.sample(thum_list, 2)
 
     print(thum_list)
+    print(thum_list[0][4].seconds)
     hashtag = []
     for i in thum_list:
         temp = db.get_hashtag(i[0])
@@ -57,5 +58,10 @@ def info():
     html = render_template('info.html', search_arg=search_vod, search_origin=search, data_list=views, tag_list=hashtag)
     return html
 
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    html = render_template('test.html')
+    return html
 
 app.run(host='127.0.0.1', port=8080)

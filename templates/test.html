@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<head>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script type="text/javascript">
+    function movieDialog(str) {
+			$("#movie_src").attr("src", $(str).attr("value"));
+			$("#a_video").load();
+			document.getElementById("a_video").play();
+		};
+		</script>
+</head>
+
+<body>
+    <video width="700" id="a_video">
+		<source id="movie_src" type="video/mp4" src="../static/vod/새.mp4" />
+	</video>
+    <br />
+    <a onClick="movieDialog(this)" href="#" value="../static/vod/새.mp4" >sample movie 1</a>
+    <a onClick="movieDialog(this)" href="#" value="../static/vod/test.mp4">sample movie 2</a>
+
+</body>
+</html>

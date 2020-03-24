@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
-{% block content %}
+{% block scripts %}
+
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script type="text/javascript">
+    function movieDialog(str) {
+			$("#movie_src").attr("src", $(str).attr("value"));
+			$("#a_video").load();
+			document.getElementById("a_video").play();
+		};
+	</script>
+
 
 <div class="container">
     <h1>test</h1>
@@ -18,7 +28,9 @@
             <div class="bs-component">
                 <div class="card mb-3" style="max-width: 50rem;">
                   <h3 class="card-header">Origin Video</h3>
-                    <video style="height: 100%; width: 100%; display: block;" src="../static/vod/새.mp4" controls></video>
+                    <video style="height: 100%; width: 100%; display: block;" id="a_video" controls>
+		                <source id="movie_src" src="../static/vod/{{vod_id[0][2]}}" >
+	                </video>
 
                 </div>
             </div>
@@ -28,26 +40,20 @@
         <div class="col-lg-4">
             <div class="bs-component">
                 <div style="max-width: 20rem;">
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
-                  </div>
-                  <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img1.PNG">
-
-                  <div class="card-body">
-                    <a href="#" class="card-link"># 해시태그1</a>
-                    <a href="#" class="card-link"># 해시태그2</a>
-                  </div>
-
-                    <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/img2.PNG">
-
+                    {% for i in range(data_list|length) %}
+                        <div class="card-body">
+                          {% for j in range(tag_list[i]|length) %}
+                            <a href="/info?search={{tag_list[i][j][0]}}" class="card-link"># {{tag_list[i][j][0]}}</a>
+                          {% endfor %}
+                        </div>
+                        조회수 : {{data_list[i][3]}}
+                        시간 : {{data_list[i][4].seconds}} {{data_list[i][5]}}
+                        <input type="image" onClick="movieDialog(this)" href="#" value="../static/vod/{{vod_id[0][2]}}#t={{data_list[i][4].seconds}},{{data_list[i][5].seconds}}"
+                               style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-
-
 {% endblock %}

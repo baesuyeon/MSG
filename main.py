@@ -59,6 +59,12 @@ def info():
     return html
 
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    html = render_template('admin.html')
+    return html
+
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     html = render_template('test.html')

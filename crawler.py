@@ -3,8 +3,21 @@ from bs4 import BeautifulSoup
 import urllib.request
 import time
 import datas
+import re
 
 driver = webdriver.Chrome('c:/informs/chromedriver.exe')
+
+def calculate_time(str) :
+    time = 0;
+    if '분' in str:
+        s = str.split('분')
+        minute = int(re.findall('\d+', s[0])[0])
+        sec = int(re.findall('\d+', s[1])[0])
+        time = minute * 60 + sec
+    else:
+        sec = int(re.findall('\d+', str)[0])
+        time = sec
+    return time
 
 def get_data(num, Clips):
     test_clip = datas.Clip()
@@ -29,15 +42,15 @@ def get_data(num, Clips):
 
     # print(len(video_src))
     print(video_src)
-    test_clip.add_clip(video_src)
+    test_clip.add_clip(video_src) # 클립 경로
     print(video_title)
-    test_clip.add_title(video_title)
+    test_clip.add_title(video_title) # 클립 제목
     print(video_views)
-    test_clip.add_views(video_views)
+    test_clip.add_views(video_views) # 클립 조회수
     print(video_time)
-    test_clip.add_time(video_time)
+    test_clip.add_time(calculate_time(video_time)) # 클립 시간
     for h in hash_list:
-        video_hash.append(h.text)
+        video_hash.append(h.text) # 클립 해시
         print(h.text)
         test_hash.add_hash(h.text)
     url = video_src

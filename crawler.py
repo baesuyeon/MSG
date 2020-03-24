@@ -10,10 +10,14 @@ driver = webdriver.Chrome('c:/informs/chromedriver.exe')
 def calculate_time(str) :
     time = 0;
     if '분' in str:
-        s = str.split('분')
-        minute = int(re.findall('\d+', s[0])[0])
-        sec = int(re.findall('\d+', s[1])[0])
-        time = minute * 60 + sec
+        if '초' in str:
+            s = str.split('분')
+            minute = int(re.findall('\d+', s[0])[0])
+            sec = int(re.findall('\d+', s[1])[0])
+            time = minute * 60 + sec
+        else :
+            minute = int(re.findall('\d+', str)[0])
+            time = minute * 60
     else:
         sec = int(re.findall('\d+', str)[0])
         time = sec

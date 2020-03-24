@@ -46,6 +46,8 @@ def get_data(num, Clips):
 
     # print(len(video_src))
     print(video_src)
+    if 'blob' in video_src:
+        return;
     test_clip.add_clip(video_src) # 클립 경로
     print(video_title)
     test_clip.add_title(video_title) # 클립 제목

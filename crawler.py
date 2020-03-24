@@ -8,10 +8,14 @@ driver = webdriver.Chrome('c:/informs/chromedriver.exe')
 
 def calculate_time(str) :
     if '분' in str:
-        s = str.split('분')
-        minute = int(re.findall('\d+', s[0])[0])
-        sec = int(re.findall('\d+', s[1])[0])
-        time = minute * 60 + sec
+        if '초' in str:
+            s = str.split('분')
+            minute = int(re.findall('\d+', s[0])[0])
+            sec = int(re.findall('\d+', s[1])[0])
+            time = minute * 60 + sec
+        else :
+            minute = int(re.findall('\d+', str)[0])
+            time = minute * 60
     else:
         sec = int(re.findall('\d+', str)[0])
         time = sec
@@ -40,6 +44,8 @@ def get_data(num, Clips):
 
     # print(len(video_src))
     print(video_src)
+    if 'blob' in video_src:
+        return;
     test_clip.add_clip(video_src) # 클립 경로
     print(video_title)
     test_clip.add_title(video_title) # 클립 제목

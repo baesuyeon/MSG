@@ -1,5 +1,4 @@
 from selenium import webdriver
-from bs4 import BeautifulSoup
 import urllib.request
 import time
 import datas
@@ -8,7 +7,6 @@ import re
 driver = webdriver.Chrome('c:/informs/chromedriver.exe')
 
 def calculate_time(str) :
-    time = 0;
     if '분' in str:
         s = str.split('분')
         minute = int(re.findall('\d+', s[0])[0])

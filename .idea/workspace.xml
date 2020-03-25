@@ -22,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1YeazJJyhiajm34xfF1RKKdltqd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -32,20 +33,21 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\templates" />
+      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\vod" />
+      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\images" />
+      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static" />
+      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\contents" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\images\hash" />
       <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\images\vod" />
       <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\css" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\vod" />
-      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\templates" />
-      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static\images" />
-      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\static" />
-      <recent name="C:\Users\junghwanlee\PycharmProjects\MSG\contents" />
     </key>
   </component>
   <component name="RunDashboard">

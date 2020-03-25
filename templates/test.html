@@ -2,23 +2,42 @@
 <html>
 <meta charset="utf-8">
 <head>
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script type="text/javascript">
-    function movieDialog(str) {
-			$("#movie_src").attr("src", $(str).attr("value"));
-			$("#a_video").load();
-			document.getElementById("a_video").play();
-		};
-		</script>
+   <style>
+    // variables
+$size: 100px !default;
+$thickness: 6px !default;
+$base-color: #fff !default;
+$wheel-color: #c30 !default;
+$speed: 800ms !default;
+
+
+// styles
+body {
+ background-color: #d5d5d5;
+}
+
+.loader {
+  margin: 5% auto;
+	height: $size;
+	width: $size;
+  border: $thickness solid $base-color;
+	border: {
+    right-color: $wheel-color;
+    top-color: $wheel-color;
+    radius: 100%;
+  }
+  animation: spin $speed infinite linear;
+}
+
+@keyframes "spin" {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(359deg); }
+}
+</style>
+
 </head>
 
 <body>
-    <video width="700" id="a_video">
-		<source id="movie_src" type="video/mp4" src="../static/vod/새.mp4" />
-	</video>
-    <br />
-    <a onClick="movieDialog(this)" href="#" value="../static/vod/새.mp4" >sample movie 1</a>
-    <a onClick="movieDialog(this)" href="#" value="../static/vod/test.mp4">sample movie 2</a>
-
+    <div class="loader"></div>
 </body>
 </html>

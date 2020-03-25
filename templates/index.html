@@ -50,7 +50,10 @@
                       {% endfor %}
                     </div>
                     조회수 : {{data_list[i][3]}}
-                    <img style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
+                      <form action="/vod" method="post">
+                        <input type="hidden" name="test" value="{{data_list[i][6]}}">
+                        <input type="image" style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
+                      </form>
                   </div>
               </div>
           </div>

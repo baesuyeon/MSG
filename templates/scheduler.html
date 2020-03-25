@@ -1,0 +1,43 @@
+{% extends "admin_lay.html" %}
+{% block scripts %}
+
+<div class="container">
+    <h1>스케줄러</h1>
+    <br><br><br><br><br><br>
+
+    <br>
+    <h2>대기중인 Task</h2>
+
+    <div align="right"><button class="btn btn-success my-2 my-sm-0" type="button">Run</button></div>
+     <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">NO</th>
+      <th scope="col">Vod Name</th>
+      <th scope="col">Clip url</th>
+        <th scope="col">View</th>
+        <th scope="col">Running Time</th>
+        <th scope="col">Check</th>
+    </tr>
+  </thead>
+    <tbody>
+        {% for i in range(thum_list|length) %}
+            <tr class="table-primary">
+              <th scope="row">{{i+1}}</th>
+                <td>방법3화</td>
+                <td>{{thum_list[i][1]}}</td>
+                <td>{{thum_list[i][3]}}</td>
+                <td>{{thum_list[i][5] - thum_list[i][4]}}</td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck1{{thum_list[i][0]}}">
+                      <label class="custom-control-label" for="customCheck1{{thum_list[i][0]}}"></label>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    <div class="loader"></div>
+</div>
+{% endblock %}

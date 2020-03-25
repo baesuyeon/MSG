@@ -60,17 +60,27 @@ def get_base_url(search_word):
             None
 
     search = name + ' ' + str(episode)
+    print('search : ' + search)
+
     i = 1
+    print('i' + str(i))
     while True:
         s = '//*[@id="cds_flick"]/div/div[2]/div/div/div/div/div[2]/div[' + str(i) + ']'
         try :
             check = driver.find_element_by_xpath(s)
         except:
             break
-
+        print('s: ' + s)
         title = driver.find_element_by_xpath(s + '/h3').text
         print('title: ' + title)
-        if search in title:
+
+        idx = title.find('화')
+        if idx == -1:
+            idx = title.find('회')
+        new_str = title[0:idx]
+        extract = int(re.findall('\d+', new_str)[0])
+
+        if episode == extract:
             url = driver.find_element_by_xpath(s + '/h3/a').get_attribute('href')
             return url
         i += 1

@@ -1,6 +1,9 @@
 from selenium import webdriver
 import urllib.request
 import time
+
+from selenium.webdriver.common.keys import Keys
+
 import datas
 import re
 
@@ -21,7 +24,58 @@ def calculate_time(str) :
         time = sec
     return time
 
-def get_data(num, Clips):
+def get_base_url(search_word):
+    list_str = search_word.split()
+    last_word = list_str[-1]
+    episode = int(re.findall('\d+', last_word)[0])
+
+    print(episode)
+    name = str()
+    print(list_str)
+    for i in range(0, len(list_str) - 1):
+        name += list_str[i]
+    print(name)
+
+    driver.get('https://tv.naver.com/')
+    search = driver.find_element_by_xpath('//*[@id="searchQuery"]')
+    # search 변수에 저장된 곳에 값을 전송
+    search.send_keys(name)
+    time.sleep(1)
+    # search 변수에 저장된 곳에 엔터를 입력
+    search.send_keys(Keys.ENTER)
+    search = driver.find_element_by_xpath('//*[@id="channel_list"]/li[1]/div/a').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="nav"]/ul/li[2]/a').click()
+    time.sleep(1)
+
+    body = driver.find_element_by_tag_name('body')
+    num_of_pagedowns = 50
+    while num_of_pagedowns:
+        body.send_keys(Keys.PAGE_DOWN)
+        time.sleep(0.3)
+        num_of_pagedowns -= 1
+        try:
+            driver.find_element_by_xpath('//*[@id="cds_flick"]/div/div[2]/div/div/div/div/div[3]/a').click()
+        except:
+            None
+
+    search = name + ' ' + str(episode)
+    i = 1
+    while True:
+        s = '//*[@id="cds_flick"]/div/div[2]/div/div/div/div/div[2]/div[' + str(i) + ']'
+        try :
+            check = driver.find_element_by_xpath(s)
+        except:
+            break
+
+        title = driver.find_element_by_xpath(s + '/h3').text
+        print('title: ' + title)
+        if search in title:
+            url = driver.find_element_by_xpath(s + '/h3/a').get_attribute('href')
+            return url
+        i += 1
+
+def get_data(num, Clips, vod_no):
     test_clip = datas.Clip()
     test_hash = datas.Hash()
 
@@ -43,9 +97,11 @@ def get_data(num, Clips):
     video_hash = []
 
     # print(len(video_src))
-    print(video_src)
     if 'blob' in video_src:
-        return;
+        video = driver.find_element_by_xpath('//*[@id="player"]/div/div[1]/div[11]/div[13]/video/source')
+        video_src = video.get_attribute('src')
+
+    print(video_src)
     test_clip.add_clip(video_src) # 클립 경로
     print(video_title)
     test_clip.add_title(video_title) # 클립 제목
@@ -60,7 +116,7 @@ def get_data(num, Clips):
     url = video_src
     test_clip.add_clip('c:/informs/video/clip' + str(num) + '.mp4')
 
-    urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
+    urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_' + str(vod_no) + '화' + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
 
     clip = []
     clip.append(test_clip)
@@ -68,12 +124,8 @@ def get_data(num, Clips):
     Clips.append(clip)
     print('-------------------------------------------------------')
 
-# 클립영상 저장 테스트
-# url = 'https://naver-cjenm-c.smartmediarep.com/smc/naver/multi/eng/C01_293675/2f636a656e6d2f434c49502f45412f423132303139353833342f423132303139353833345f455049303030315f30315f7433352e6d7034/0-0-0/content.mp4?solexpire=1584451800&solpathlen=148&soltoken=5ae15951101d0edcbee3603e5a25426e&soltokenrule=c29sZXhwaXJlfHNvbHBhdGhsZW58c29sdXVpZA==&soluriver=2&soluuid=41f663db-0305-4e0e-b336-7d30a3387b39&itemtypeid=35&tid=rmcPlayer_15844086010118743'
-# urllib.request.urlretrieve(url, 'c:/informs/video/test.mp4')
-
-def crawler(Clips, url) :
-    base_url = url
+def crawler(Clips, search_word, vod_no) :
+    base_url = get_base_url(search_word)
     driver.get(base_url)
     nc = driver.find_element_by_xpath('//*[@id="playlistArea"]/div/div[1]/div[1]/strong/em')
     num_clip = int(nc.text.split('/')[1])
@@ -110,4 +162,8 @@ def crawler(Clips, url) :
             time.sleep(5)
             print("click")
 
-        get_data(i, Clips)
+        get_data(i, Clips, vod_no)
+
+# 클립영상 저장 테스트
+# url = 'https://naver-cjenm-c.smartmediarep.com/smc/naver/multi/eng/C01_293675/2f636a656e6d2f434c49502f45412f423132303139353833342f423132303139353833345f455049303030315f30315f7433352e6d7034/0-0-0/content.mp4?solexpire=1584451800&solpathlen=148&soltoken=5ae15951101d0edcbee3603e5a25426e&soltokenrule=c29sZXhwaXJlfHNvbHBhdGhsZW58c29sdXVpZA==&soluriver=2&soluuid=41f663db-0305-4e0e-b336-7d30a3387b39&itemtypeid=35&tid=rmcPlayer_15844086010118743'
+# urllib.request.urlretrieve(url, 'c:/informs/video/test.mp4')

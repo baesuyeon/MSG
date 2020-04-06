@@ -29,7 +29,7 @@ def get_base_url(search_word):
     last_word = list_str[-1]
     episode = int(re.findall('\d+', last_word)[0])
 
-    print(episode)
+    print('episode: ' + str(episode))
     name = str()
     print(list_str)
     for i in range(0, len(list_str) - 1):
@@ -63,29 +63,26 @@ def get_base_url(search_word):
     print('search : ' + search)
 
     i = 1
-    print('i' + str(i))
+    # print('i' + str(i))
     while True:
         s = '//*[@id="cds_flick"]/div/div[2]/div/div/div/div/div[2]/div[' + str(i) + ']'
         try :
             check = driver.find_element_by_xpath(s)
         except:
             break
-        print('s: ' + s)
         title = driver.find_element_by_xpath(s + '/h3').text
-        print('title: ' + title)
+        # print('title: ' + title)
 
-        idx = title.find('화')
-        if idx == -1:
-            idx = title.find('회')
-        new_str = title[0:idx]
-        extract = int(re.findall('\d+', new_str)[0])
+        list_title = title.split()
+        last = list_title[-1]
+        extract = int(re.findall('\d+', last)[0])
 
         if episode == extract:
             url = driver.find_element_by_xpath(s + '/h3/a').get_attribute('href')
-            return url
+            return url, episode
         i += 1
 
-def get_data(num, Clips, vod_no):
+def get_data(num, Clips, episode):
     test_clip = datas.Clip()
     test_hash = datas.Hash()
 
@@ -93,11 +90,12 @@ def get_data(num, Clips, vod_no):
     title = driver.find_element_by_xpath('//*[@id="clipInfoArea"]/div[1]/h3')
     views = driver.find_element_by_xpath('//*[@id="clipInfoArea"]/div[1]/div/span[1]')
     hash_list = driver.find_elements_by_css_selector('#clipInfoArea > div.hash_box > ul > li')
-    time_info = driver.find_element_by_xpath('//*[@id="player"]/div/div[1]/div[11]/div[4]/div[3]/div[2]/div[1]/div[5]/span[3]/span')
     vod = driver.find_element_by_xpath('//*[@id="topChannelInfo"]/div/div[1]/h2/a')
 
     driver.implicitly_wait(30)  # seconds
     time.sleep(2)
+
+    time_info = driver.find_element_by_xpath('//*[@id="player"]/div/div[1]/div[11]/div[4]/div[3]/div[2]/div[1]/div[5]/span[3]/span')
 
     vod_name = vod.text
     video_src = video.get_attribute('src')
@@ -105,6 +103,12 @@ def get_data(num, Clips, vod_no):
     video_views = views.text
     video_time = time_info.get_attribute('aria-label')
     video_hash = []
+
+    if '예고' in video_title:
+        return
+
+    if '메이킹' in video_title:
+        return
 
     # print(len(video_src))
     if 'blob' in video_src:
@@ -126,23 +130,25 @@ def get_data(num, Clips, vod_no):
     url = video_src
     test_clip.add_clip('c:/informs/video/clip' + str(num) + '.mp4')
 
-    urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_' + str(vod_no) + '화' + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
+    urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_' + str(episode) + '화' + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
 
     clip = []
     clip.append(test_clip)
     clip.append(test_hash)
     Clips.append(clip)
+
+
     print('-------------------------------------------------------')
 
 def crawler(Clips, search_word, vod_no) :
-    base_url = get_base_url(search_word)
+    base_url, episode = get_base_url(search_word)
     driver.get(base_url)
     nc = driver.find_element_by_xpath('//*[@id="playlistArea"]/div/div[1]/div[1]/strong/em')
     num_clip = int(nc.text.split('/')[1])
     print('Total Clip : ' + str(num_clip))
 
     for i in range(1, num_clip + 1) :
-        print('Clip' + str(i))
+        # print('Clip' + str(i))
         if i == 1 :
             card = driver.find_element_by_xpath('//*[@id="playlistClip"]/li[' + str(i) + ']/div[2]/a').get_attribute('href')
         else :
@@ -172,7 +178,7 @@ def crawler(Clips, search_word, vod_no) :
             time.sleep(5)
             print("click")
 
-        get_data(i, Clips, vod_no)
+        get_data(i, Clips, episode)
 
 # 클립영상 저장 테스트
 # url = 'https://naver-cjenm-c.smartmediarep.com/smc/naver/multi/eng/C01_293675/2f636a656e6d2f434c49502f45412f423132303139353833342f423132303139353833345f455049303030315f30315f7433352e6d7034/0-0-0/content.mp4?solexpire=1584451800&solpathlen=148&soltoken=5ae15951101d0edcbee3603e5a25426e&soltokenrule=c29sZXhwaXJlfHNvbHBhdGhsZW58c29sdXVpZA==&soluriver=2&soluuid=41f663db-0305-4e0e-b336-7d30a3387b39&itemtypeid=35&tid=rmcPlayer_15844086010118743'

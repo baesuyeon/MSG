@@ -1,0 +1,45 @@
+{% extends "admin_lay.html" %}
+{% block scripts %}
+
+<div class="container">
+    <h1>크롤러</h1>
+    <br><br><br><br><br><br>
+    <form class="form-inline my-2 my-lg-0" action="/admin/crawler" method="get">
+              <input class="form-control mr-sm-2" type="text" name="vod_search" placeholder="Search">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <br>
+    <h2>Vod List</h2>
+
+        <div align="right"><a href="scheduler"><button class="btn btn-success my-2 my-sm-0" type="button">Run</button></a></div>
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">NO</th>
+      <th scope="col">Vod Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Release</th>
+        <th scope="col">Check</th>
+    </tr>
+  </thead>
+    <tbody>
+        {% for i in range(data_list|length) %}
+            <tr class="table-primary">
+              <th scope="row">{{data_list[i][0]}}</th>
+              <td>{{data_list[i][1]}}</td>
+              <td>content</td>
+              <td>{{data_list[i][6]}}</td>
+               <td>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck1{{data_list[i][0]}}">
+                      <label class="custom-control-label" for="customCheck1{{data_list[i][0]}}"></label>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    <div class="loader"></div>
+</div>
+{% endblock %}

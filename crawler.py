@@ -113,24 +113,26 @@ def get_data(num, Clips, episode):
     # print(len(video_src))
     if 'blob' in video_src:
         video = driver.find_element_by_xpath('//*[@id="player"]/div/div[1]/div[11]/div[13]/video/source')
-        video_src = video.get_attribute('src')
+        url = video.get_attribute('src')
+        test_clip.add_clip('url')
+        print(url)
+    else:
+        url = video_src
+        urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_' + str(episode) + '화' + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
 
     print(video_src)
-    test_clip.add_clip(video_src) # 클립 경로
+    test_clip.add_clip(video_src)  # 클립 경로
     print(video_title)
-    test_clip.add_title(video_title) # 클립 제목
+    test_clip.add_title(video_title)  # 클립 제목
     print(video_views)
-    test_clip.add_views(video_views) # 클립 조회수
+    test_clip.add_views(video_views)  # 클립 조회수
     print(video_time)
-    test_clip.add_time(calculate_time(video_time)) # 클립 시간
+    test_clip.add_time(calculate_time(video_time))  # 클립 시간
     for h in hash_list:
-        video_hash.append(h.text) # 클립 해시
+        video_hash.append(h.text)  # 클립 해시
         print(h.text)
         test_hash.add_hash(h.text)
-    url = video_src
-    test_clip.add_clip('c:/informs/video/clip' + str(num) + '.mp4')
-
-    urllib.request.urlretrieve(url, 'c:/informs/video/' + vod_name + '_' + str(episode) + '화' + '_clip' + str(num) + '.mp4') # 클립 영상이 저장되는 경로
+    test_clip.add_clip('c:/informs/video/clip' + vod_name + '_' + str(episode) + '화' + '_clip' + str(num))
 
     clip = []
     clip.append(test_clip)

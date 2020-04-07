@@ -46,8 +46,6 @@
                             <a href="/info?search={{tag_list[i][j][0]}}" class="card-link"># {{tag_list[i][j][0]}}</a>
                           {% endfor %}
                         </div>
-                        조회수 : {{data_list[i][3]}}
-                        시간 : {{data_list[i][4].seconds}} {{data_list[i][5]}}
                         <input type="image" onClick="movieDialog(this)" href="#" value="../static/vod/{{vod_id[0][2]}}#t={{data_list[i][4].seconds}},{{data_list[i][5].seconds}}"
                                style="height: 100%; width: 100%; display: block;" src="../static/thumbnails/{{data_list[i][1]}}">
                     {% endfor %}

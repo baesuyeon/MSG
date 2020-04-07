@@ -2,22 +2,22 @@
 {% block scripts %}
 
 <div class="container">
-    <h1>영상매칭 스케쥴러</h1>
+    <h1>결과 등록 화면</h1>
     <br><br><br><br><br><br>
 
     <br>
     <h2>대기중인 Task</h2>
 
-    <div align="right"><a href="register"><button class="btn btn-success my-2 my-sm-0" type="button">Run</button></a></div>
+    <div align="right"><a href="/"><button class="btn btn-success my-2 my-sm-0" type="button">Accept</button></a></div>
      <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">NO</th>
       <th scope="col">Vod Name</th>
-      <th scope="col">Clip url</th>
-        <th scope="col">View</th>
-        <th scope="col">Running Time</th>
-        <th scope="col">Check</th>
+      <th scope="col">Thumnail url</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Success</th>
     </tr>
   </thead>
     <tbody>
@@ -26,14 +26,21 @@
               <th scope="row">{{i+1}}</th>
                 <td>방법3화</td>
                 <td>{{thum_list[i][1]}}</td>
-                <td>{{thum_list[i][3]}}</td>
-                <td>{{thum_list[i][5] - thum_list[i][4]}}</td>
+                <td>{{thum_list[i][4]}}</td>
+                <td>{{thum_list[i][5]}}</td>
                 <td>
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="customCheck1{{thum_list[i][0]}}">
                       <label class="custom-control-label" for="customCheck1{{thum_list[i][0]}}"></label>
                     </div>
                 </td>
+            </tr>
+
+            <tr class="table-secondary">
+                {% for j in range(6) %}
+                    <td>
+                <input type="text" value="{{hash_list[i][j][0]}}" class="form-control" id="inputValid"></td>
+                {% endfor %}
             </tr>
         {% endfor %}
     </tbody>

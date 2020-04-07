@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request
-import database as db
 import random
+
+from flask import Flask, render_template, request
+
+import database as db
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'MSG'
@@ -85,6 +87,27 @@ def scheduler():
     thum_list = db.get_thumbnail_with_vodid(4)
     print(thum_list)
     html = render_template('scheduler.html', thum_list=thum_list)
+    return html
+
+
+@app.route('/admin/register', methods=['GET', 'POST'])
+def register():
+    thum_list = db.get_thumbnail_with_vodid(4)
+    print(thum_list)
+    hashtag = []
+    for i in thum_list:
+        temp = db.get_hashtag(i[0])
+        if len(temp) > 7:
+            temp = random.sample(temp, 7)
+        hashtag.append(temp)
+    print(hashtag)
+    html = render_template('register.html', thum_list=thum_list, hash_list=hashtag)
+    return html
+
+
+@app.route('/hidden', methods=['GET', 'POST'])
+def hidden():
+    html = render_template('hidden.html')
     return html
 
 

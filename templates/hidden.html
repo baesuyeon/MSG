@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    {% if title %}
+      <title>MSG - {{ title }}</title>
+    {% else %}
+      <title>MSG</title>
+    {% endif %}
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+
+    <!-- Font awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    {% block stylesheet %}{% endblock %}
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div style="height: 100px;"></div>
+      <center><a href="/admin"><img style="height: 100%; width: 50%; display: block;" src="../static/etc/olleh.PNG"></center></a>
+      <div style="height: 50px;"></div>
+      <div class="row">
+            <form class="form-inline my-2 my-lg-0"
+                  style="position:relative; left:25%; right:20%;" action="/info" method="get">
+                <input class="form-control mr-sm-2" style="width : 30rem;" type="text" name="search" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+      </div>
+      <div style="height: 50px; border-bottom: 2px solid black;"></div>
+
+</div>
+</body>
